@@ -18,20 +18,20 @@ describe('KBMarket', function () {
 
     const auctionPrice = ethers.utils.parseUnits('100', 'ether');
 
-    await nft.minToken('https-t1');
-    await nft.minToken('https-t2');
+    await nft.createToken('https-t1');
+    await nft.createToken('https-t2');
 
-    await market.makeMarketItem(nftContractAddress, 1, auctionPrice, {
+    await market.createMarketItem(nftContractAddress, 1, auctionPrice, {
       value: listingPrice,
     });
-    await market.makeMarketItem(nftContractAddress, 2, auctionPrice, {
+    await market.createMarketItem(nftContractAddress, 2, auctionPrice, {
       value: listingPrice,
     });
     const [_, buyerAddress] = await ethers.getSigners();
     await market
       .connect(buyerAddress)
       .createMarketSale(nftContractAddress, 1, { value: auctionPrice });
-    let items = await market.fetchMarketTokens();
+    let items = await market.fetchMarketItems();
     items = await Promise.all(
       items.map(async (i) => {
         const tokenUri = await nft.tokenURI(i.tokenId);
