@@ -18,7 +18,7 @@ function KryptoBirdMarketplace({ Component, pageProps }: AppProps) {
               main marketplace
             </a>
           </Link>
-          <Link href="/">
+          <Link href="/mint-item">
             <a className="mr-6 hover:text-purple-400 capitalize">mint tokens</a>
           </Link>
           <Link href="/">

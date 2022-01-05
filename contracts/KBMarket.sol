@@ -99,7 +99,6 @@ contract KBMarket is ReentrancyGuard {
     _itemsSold.increment();
     payable(owner).transfer(listingPrice);
   }
-
   /* Returns all unsold market items */
   function fetchMarketItems() public view returns (MarketItem[] memory) {
     uint itemCount = _itemIds.current();
