@@ -1,8 +1,39 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import Link from 'next/link';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+function KryptoBirdMarketplace({ Component, pageProps }: AppProps) {
+  return (
+    <div>
+      <nav
+        className="boder-b p-6 text-center"
+        style={{ backgroundColor: 'purple' }}
+      >
+        <p className="text-2xl font-bold text-white mr-5">
+          KryptoBird MarketPlace
+        </p>
+        <div className="flex justify-center align-center text-white mt-5">
+          <Link href="/">
+            <a className="mr-6 hover:text-purple-400 capitalize">
+              main marketplace
+            </a>
+          </Link>
+          <Link href="/">
+            <a className="mr-6 hover:text-purple-400 capitalize">mint tokens</a>
+          </Link>
+          <Link href="/">
+            <a className="mr-6 hover:text-purple-400 capitalize">My NFTs</a>
+          </Link>
+          <Link href="/">
+            <a className="mr-6 hover:text-purple-400 capitalize">
+              account dashboard
+            </a>
+          </Link>
+        </div>
+      </nav>
+      <Component {...pageProps}></Component>
+    </div>
+  );
 }
 
-export default MyApp
+export default KryptoBirdMarketplace;
