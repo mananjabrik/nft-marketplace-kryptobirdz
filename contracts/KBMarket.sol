@@ -45,7 +45,7 @@ contract KBMarket is ReentrancyGuard {
         return listingPrice;
     }
 
-    function mintMarketItem(address nftContract,uint tokenId, uint price) public payable  nonReentrant {
+    function makeMarketItem(address nftContract,uint tokenId, uint price) public payable  nonReentrant {
         require (price > 0, 'Price must be at least one wei');
         require (msg.value == listingPrice, 'prive must be equal to listing price');
         _tokenIds.increment();

@@ -2,7 +2,7 @@ require('@nomiclabs/hardhat-waffle');
 
 const projectId = 'c7b7e4315ecc48d5a921d620c38f27d0';
 const fs = require('fs');
-const keyData = fs.readFileSync('./p-key.txt', {
+const keyData = fs.readFileSync('.secret', {
   encoding: 'utf8',
   flag: 'r',
 });
@@ -26,7 +26,7 @@ module.exports = {
     version: '0.8.4',
     settings: {
       optimizer: {
-        enable: true,
+        enabled: true,
         runs: 200,
       },
     },
