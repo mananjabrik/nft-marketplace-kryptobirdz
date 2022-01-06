@@ -13,3 +13,24 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+to run this project, first run hardhat node, 
+```shell
+yarn install
+npx hadhat test
+npx hardhat node
+```
+and open new terminal for deploy your contract to localhost ethereum test
+```shell
+npx hardhat run scripts/deploy.js --network localhost
+```
+if succes build your contract, you can see on root folder config.js
+hardhat deploy two address: the first nftaddress for nft items, and nftmarketaddress for minted nft, buy nft.
+to run this project first edit your config.js nftaddress and nftmarketaddress to string value because i dont know how to create value to string,
+help me to create base nft market thanks..!!
+
+if you done edited config.js, go to terminal node you can import account metamask for testing enjoy..!!!
+
+and last 
+```shell
+yarn dev
+```
