@@ -13,7 +13,7 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
-to run this project, first run hardhat node, 
+to run this project locally, first run hardhat node, 
 ```shell
 yarn install
 npx hardhat test
@@ -29,6 +29,7 @@ to run this project first edit your config.js nftaddress and nftmarketaddress to
 help me to create base nft market thanks..!!
 
 if you done edited config.js, go to terminal node you can import account metamask for testing enjoy..!!!
+dont forget to change network localhost:8545 on metamask
 
 and last 
 ```shell
