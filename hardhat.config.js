@@ -13,6 +13,12 @@ module.exports = {
     hardhat: {
       chainId: 1337, // config standart just test dude...!!
     },
+    testnet: {
+      url: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+      chainId: 97,
+      gasPrice: 20000000000,
+      accounts: [keyData],
+    },
     mumbai: {
       url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
       accounts: [keyData],

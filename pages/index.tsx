@@ -32,27 +32,30 @@ const Home: NextPage = () => {
       KBMarket.abi,
       provider
     );
-    const data = await marketContract.fetchMarketItems();
-
-    const items = await Promise.all(
-      data.map(async (i: NftsProps) => {
-        const tokenUri = await tokenContract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        let item = {
-          price,
-          tokenId: i.tokenId,
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.data.image,
-          name: meta.data.name,
-          description: meta.data.description,
-        };
-        return item;
-      })
-    );
-    setNfts(items);
-    setLoadingState('loaded');
+    try {
+      const data = await marketContract.fetchMarketItems();
+      const items = await Promise.all(
+        data.map(async (i: NftsProps) => {
+          const tokenUri = await tokenContract.tokenURI(i.tokenId);
+          const meta = await axios.get(tokenUri);
+          let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+          let item = {
+            price,
+            tokenId: i.tokenId,
+            seller: i.seller,
+            owner: i.owner,
+            image: meta.data.image,
+            name: meta.data.name,
+            description: meta.data.description,
+          };
+          return item;
+        })
+      );
+      setNfts(items);
+      setLoadingState('loaded');
+    } catch (erro) {
+      console.log(erro);
+    }
   }
 
   async function buyNFTs(nft: any) {
@@ -107,7 +110,7 @@ const Home: NextPage = () => {
                 {nft.price} ETH
               </p>
               <button
-                className="w-full bg-purple-500 text-white font-bold py-3 px-12 rounded"
+                className="w-full bg-purple-500 text-white font-bold rounded-md"
                 onClick={() => buyNFTs(nft)}
               >
                 Buy

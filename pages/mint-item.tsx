@@ -53,8 +53,8 @@ export default function MinItem() {
     let transaction = await contract.createToken(url);
     let tx = await transaction.wait();
     let event = tx.events[0];
-    let value = event.args[2];
-    let tokenId = value.toNumber();
+    let value = event?.args[2];
+    let tokenId = value?.toNumber();
     const price = ethers.utils.parseUnits(formInput.price, 'ether');
 
     contract = new ethers.Contract(nftmarketaddress, KBMarket.abi, signer);
