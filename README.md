@@ -16,7 +16,7 @@ npx hardhat help
 to run this project, first run hardhat node, 
 ```shell
 yarn install
-npx hadhat test
+npx hardhat test
 npx hardhat node
 ```
 and open new terminal for deploy your contract to localhost ethereum test
