@@ -19,6 +19,10 @@ module.exports = {
       gasPrice: 20000000000,
       accounts: [keyData],
     },
+    ropsten: {
+      url: `https://ropsten.infura.io/v3/${projectId}`,
+      accounts: [keyData],
+    },
     mumbai: {
       url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
       accounts: [keyData],

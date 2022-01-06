@@ -21,6 +21,7 @@ interface NftsProps {
 const Home: NextPage = () => {
   const [nfts, setNfts] = useState<NftsProps[]>();
   const [loadingState, setLoadingState] = useState('not-loaded');
+  console.log(nfts);
   useEffect(() => {
     loadNFTs();
   }, []);
@@ -55,6 +56,7 @@ const Home: NextPage = () => {
       setLoadingState('loaded');
     } catch (erro) {
       console.log(erro);
+      setLoadingState(loadingState);
     }
   }
 
@@ -79,7 +81,7 @@ const Home: NextPage = () => {
     await transaction.wait();
     loadNFTs();
   }
-  if (loadingState === 'loaded' && !nfts?.length) {
+  if (loadingState === 'not-loaded' && !nfts?.length) {
     return <h1 className="px-20 py-7 text-4xl">No NFTs in MarketPlace</h1>;
   }
   return (
@@ -87,11 +89,11 @@ const Home: NextPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
         {nfts?.map((nft, index) => (
           <div key={index} className="border shadow rounded-xl overflow-hidden">
-            <img
+            {/* <img
               src={nft.image ?? ''}
               alt={nft.name ?? ''}
               className="object-cover h-48 w-96"
-            />
+            /> */}
             <div className="p-4">
               <p className="text-3xl font-semibold truncate capitalize">
                 {nft.name ?? ''}
