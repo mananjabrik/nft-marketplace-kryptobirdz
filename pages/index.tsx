@@ -21,7 +21,7 @@ interface NftsProps {
 const Home: NextPage = () => {
   const [nfts, setNfts] = useState<NftsProps[]>();
   const [loadingState, setLoadingState] = useState('not-loaded');
-  console.log(nfts);
+
   useEffect(() => {
     loadNFTs();
   }, []);
@@ -56,11 +56,11 @@ const Home: NextPage = () => {
       setLoadingState('loaded');
     } catch (erro) {
       console.log(erro);
-      setLoadingState(loadingState);
+      setLoadingState('not-loaded');
     }
   }
 
-  async function buyNFTs(nft: any) {
+  async function buyNFTs(nft: NftsProps) {
     const web3modal = new Web3Modal();
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -89,11 +89,11 @@ const Home: NextPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
         {nfts?.map((nft, index) => (
           <div key={index} className="border shadow rounded-xl overflow-hidden">
-            {/* <img
+            <img
               src={nft.image ?? ''}
               alt={nft.name ?? ''}
-              className="object-cover h-48 w-96"
-            /> */}
+              className="object-cover h-50 w-96"
+            />
             <div className="p-4">
               <p className="text-3xl font-semibold truncate capitalize">
                 {nft.name ?? ''}

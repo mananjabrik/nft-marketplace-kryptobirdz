@@ -24,7 +24,7 @@ function KryptoBirdMarketplace({ Component, pageProps }: AppProps) {
           <Link href="/my-nfts">
             <a className="mr-6 hover:text-purple-400 capitalize">My NFTs</a>
           </Link>
-          <Link href="/">
+          <Link href="/creator-dashboard">
             <a className="mr-6 hover:text-purple-400 capitalize">
               account dashboard
             </a>
