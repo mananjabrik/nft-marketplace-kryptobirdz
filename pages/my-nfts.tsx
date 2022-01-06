@@ -18,21 +18,25 @@ interface NftsProps {
   name: string;
   description: string;
 }
-const Home: NextPage = () => {
+const MyNfts = () => {
   const [nfts, setNfts] = useState<NftsProps[]>();
   const [loadingState, setLoadingState] = useState('not-loaded');
   useEffect(() => {
     loadNFTs();
   }, []);
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider();
+    const web3modal = new Web3Modal();
+    const connection = await web3modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+    // const provider = new ethers.providers.JsonRpcProvider();
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
     const marketContract = new ethers.Contract(
       nftmarketaddress,
       KBMarket.abi,
-      provider
+      signer
     );
-    const data = await marketContract.fetchMarketItems();
+    const data = await marketContract.fetchMyNFTs();
 
     const items = await Promise.all(
       data.map(async (i: NftsProps) => {
@@ -55,29 +59,29 @@ const Home: NextPage = () => {
     setLoadingState('loaded');
   }
 
-  async function buyNFTs(nft: any) {
-    const web3modal = new Web3Modal();
-    const connection = await web3modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner();
+  //   async function buyNFTs(nft: any) {
+  //     const web3modal = new Web3Modal();
+  //     const connection = await web3modal.connect();
+  //     const provider = new ethers.providers.Web3Provider(connection);
+  //     const signer = provider.getSigner();
 
-    const contract = new ethers.Contract(
-      nftmarketaddress,
-      KBMarket.abi,
-      signer
-    );
+  //     const contract = new ethers.Contract(
+  //       nftmarketaddress,
+  //       KBMarket.abi,
+  //       signer
+  //     );
 
-    const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
-    const transaction = await contract.createMarketSale(
-      nftaddress,
-      nft.tokenId,
-      { value: price }
-    );
-    await transaction.wait();
-    loadNFTs();
-  }
+  //     const price = ethers.utils.parseUnits(nft.price.toString, 'ether');
+  //     const transaction = await contract.createMarketSale(
+  //       nftaddress,
+  //       nft.tokenId,
+  //       { value: price }
+  //     );
+  //     await transaction.wait();
+  //     loadNFTs();
+  //   }
   if (loadingState === 'loaded' && !nfts?.length) {
-    return <h1 className="px-20 py-7 text-4xl">No NFTs in MarketPlace</h1>;
+    return <h1 className="px-20 py-7 text-4xl">you dont have nfts</h1>;
   }
   return (
     <div className="flex justify-center">
@@ -95,12 +99,12 @@ const Home: NextPage = () => {
               <p className="text-3xl mb-4 font-bold text-white">
                 {nft.price} ETH
               </p>
-              <button
+              {/* <button
                 className="w-full bg-purple-500 text-white font-bold py-3 px-12 rounded"
                 onClick={() => buyNFTs(nft)}
               >
                 Buy
-              </button>
+              </button> */}
             </div>
           </div>
         ))}
@@ -109,4 +113,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default MyNfts;
