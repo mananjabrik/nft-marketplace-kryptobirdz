@@ -92,19 +92,24 @@ const MyNfts = () => {
             <div className="p-4">
               <p className="text-3xl font-semibold">{nft.name ?? ''}</p>
               <div>
-                <p className="text-gray-400">{nft.description}</p>
+                <p className="text-gray-400">description : {nft.description}</p>
+                <p className="text-gray-400 truncate">owner : {nft.owner}</p>
+                <p className="text-gray-400 truncate">seller : {nft.seller}</p>
+                <p className="text-gray-400 truncate">
+                  id : {nft.tokenId.toString()}
+                </p>
               </div>
             </div>
             <div className="p-4 bg-black">
               <p className="text-3xl mb-4 font-bold text-white">
                 {nft.price} ETH
               </p>
-              {/* <button
+              <button
                 className="w-full bg-purple-500 text-white font-bold py-3 px-12 rounded"
-                onClick={() => buyNFTs(nft)}
+                // onClick={() => buyNFTs(nft)}
               >
-                Buy
-              </button> */}
+                Sell
+              </button>
             </div>
           </div>
         ))}

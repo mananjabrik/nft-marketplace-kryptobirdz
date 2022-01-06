@@ -84,11 +84,22 @@ const Home: NextPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
         {nfts?.map((nft, index) => (
           <div key={index} className="border shadow rounded-xl overflow-hidden">
-            <img src={nft.image ?? ''} alt={nft.name ?? ''} />
+            <img
+              src={nft.image ?? ''}
+              alt={nft.name ?? ''}
+              className="object-cover h-48 w-96"
+            />
             <div className="p-4">
-              <p className="text-3xl font-semibold">{nft.name ?? ''}</p>
+              <p className="text-3xl font-semibold truncate capitalize">
+                {nft.name ?? ''}
+              </p>
               <div>
-                <p className="text-gray-400">{nft.description}</p>
+                <p className="text-gray-400 truncate">{nft.description}</p>
+                <p className="text-gray-400 truncate">owner : {nft.owner}</p>
+                <p className="text-gray-400 truncate">seller : {nft.seller}</p>
+                <p className="text-gray-400 truncate">
+                  id : {nft.tokenId.toString()}
+                </p>
               </div>
             </div>
             <div className="p-4 bg-black">
