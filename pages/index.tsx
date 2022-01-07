@@ -17,11 +17,13 @@ const Home: NextPage = () => {
   }, []);
   return (
     <div className="flex justify-center">
-      {loadingState === true ? <Loading /> : null}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
-        {nfts?.map((nft, index) => (
-          <CardItem key={index} onBuy={() => buyNFTs(nft)} {...nft} />
-        ))}
+      <div className="px-4" style={{ maxWidth: '1600px' }}>
+        {loadingState === true ? <Loading /> : null}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
+          {nfts?.map((nft, index) => (
+            <CardItem key={index} onBuy={() => buyNFTs(nft)} {...nft} />
+          ))}
+        </div>
       </div>
     </div>
   );
