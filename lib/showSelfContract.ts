@@ -1,8 +1,8 @@
 import { ethers } from 'ethers';
 import { nftaddress, nftmarketaddress } from '../config';
 
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
-import KBMarket from '../artifacts/contracts/KBMarket.sol/KBMarket.json';
+import NFT from '../config/contracts/NFT.sol/NFT.json';
+import KBMarket from '../config/contracts/KBMarket.sol/KBMarket.json';
 
 import Web3Modal from 'web3modal';
 

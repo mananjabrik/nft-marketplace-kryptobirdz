@@ -4,8 +4,8 @@ import Web3Modal from 'web3modal';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { nftaddress, nftmarketaddress } from '../config';
 
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
-import KBMarket from '../artifacts/contracts/KBMarket.sol/KBMarket.json';
+import NFT from '../config/contracts/NFT.sol/NFT.json';
+import KBMarket from '../config/contracts/KBMarket.sol/KBMarket.json';
 import { useRouter } from 'next/router';
 //@ts-ignore
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
