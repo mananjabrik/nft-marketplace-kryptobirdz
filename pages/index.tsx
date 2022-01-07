@@ -14,6 +14,7 @@ const Home: NextPage = () => {
       setNfts(nft?.items);
       setLoadingState(false);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="flex justify-center">
