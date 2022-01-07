@@ -17,6 +17,7 @@ interface NftsProps {
   image: string;
   name: string;
   description: string;
+  kategory: string;
 }
 export default function CreatorDashboard() {
   const [nfts, setNfts] = useState<NftsProps[]>();
@@ -54,12 +55,18 @@ export default function CreatorDashboard() {
             owner: i.owner,
             sold: i.price,
             image: meta.data.image,
+            kategory: meta.data.kategory,
           };
           return item;
         })
       );
       /* create a filtered array of items that have been sold */
-      const soldItems = items.filter((i: NftsProps) => i.price);
+      const soldItems = items.filter((i: NftsProps) => {
+        const ownerdetect = '0x0000000000000000000000000000000000000000';
+        if (i.owner !== ownerdetect) {
+          return true;
+        }
+      });
       setSold(soldItems);
       setNfts(items);
       setLoadingState('loaded');
@@ -68,7 +75,7 @@ export default function CreatorDashboard() {
       setLoadingState('not-loaded');
     }
   }
-  if (loadingState === 'not-loaded' && !nfts?.length)
+  if (loadingState === 'not-loaded' && !nfts?.length && !sold?.length)
     return <h1 className="py-10 px-20 text-3xl">No assets created</h1>;
   return (
     <div>
@@ -77,7 +84,25 @@ export default function CreatorDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {nfts?.map((nft, i) => (
             <div key={i} className="border shadow rounded-xl overflow-hidden">
-              <img src={nft.image} className="rounded" />
+              <img src={nft.image} className="object-cover h-72 w-96" />
+              <div className="p-4">
+                <p className="text-3xl font-semibold truncate capitalize">
+                  {nft.name ?? ''}
+                </p>
+                <div>
+                  {/* <p className="text-gray-400 truncate">{nft.description}</p> */}
+                  {/* <p className="text-gray-400 truncate">owner : {nft.owner}</p> */}
+                  <p className="text-gray-400 truncate">
+                    seller : {nft.seller}
+                  </p>
+                  <p className="text-gray-400 truncate">
+                    id : {nft.tokenId.toString()}
+                  </p>
+                  <p className="text-gray-400 truncate">
+                    kategori : {nft.kategory}
+                  </p>
+                </div>
+              </div>
               <div className="p-4 bg-black">
                 <p className="text-2xl font-bold text-white">
                   Price - {nft.price} Eth
@@ -88,16 +113,16 @@ export default function CreatorDashboard() {
         </div>
       </div>
       <div className="px-4">
-        {Boolean(sold?.length) && (
+        {sold?.length ? (
           <div>
-            <h2 className="text-2xl py-2">Items sold</h2>
+            <h2 className="text-2xl py-2">Items soldout</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
               {sold?.map((nft, i) => (
                 <div
                   key={i}
                   className="border shadow rounded-xl overflow-hidden"
                 >
-                  <img src={nft.image} className="rounded" />
+                  <img src={nft.image} className="object-cover h-72 w-96" />
                   <div className="p-4 bg-black">
                     <p className="text-2xl font-bold text-white">
                       Price - {nft.price} Eth
@@ -107,6 +132,8 @@ export default function CreatorDashboard() {
               ))}
             </div>
           </div>
+        ) : (
+          <h1 className="py-10 px-20 text-3xl">No assets created</h1>
         )}
       </div>
     </div>

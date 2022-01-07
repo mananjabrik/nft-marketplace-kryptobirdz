@@ -16,6 +16,7 @@ export default function MinItem() {
     price: '',
     name: '',
     description: '',
+    kategory: '',
   });
   const router = useRouter();
   async function onChange(e: any) {
@@ -32,9 +33,14 @@ export default function MinItem() {
   }
 
   async function createMarket() {
-    const { name, description, price } = formInput;
-    if (!name || !description || !price || !fileUrl) return;
-    const data = JSON.stringify({ name, description, image: fileUrl });
+    const { name, description, price, kategory } = formInput;
+    if (!name || !description || !price || !fileUrl || !kategory) return;
+    const data = JSON.stringify({
+      name,
+      description,
+      image: fileUrl,
+      kategory,
+    });
     try {
       const added = await client.add(data);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
@@ -44,28 +50,37 @@ export default function MinItem() {
     }
   }
   async function createSale(url: string) {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const provider = new ethers.providers.Web3Provider(connection);
-    const signer = provider.getSigner(0);
+    try {
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner(0);
 
-    let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
-    let transaction = await contract.createToken(url);
-    let tx = await transaction.wait();
-    let event = tx.events[0];
-    let value = event?.args[2];
-    let tokenId = value?.toNumber();
-    const price = ethers.utils.parseUnits(formInput.price, 'ether');
+      let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
+      let transaction = await contract.createToken(url);
+      let tx = await transaction.wait();
+      let event = tx.events[0];
+      let value = event?.args[2];
+      let tokenId = value?.toNumber();
+      const price = ethers.utils.parseUnits(formInput.price, 'ether');
 
-    contract = new ethers.Contract(nftmarketaddress, KBMarket.abi, signer);
-    let listingPrice = await contract.getListingPrice();
-    listingPrice = listingPrice.toString();
+      contract = new ethers.Contract(nftmarketaddress, KBMarket.abi, signer);
+      let listingPrice = await contract.getListingPrice();
+      listingPrice = listingPrice.toString();
 
-    transaction = await contract.createMarketItem(nftaddress, tokenId, price, {
-      value: listingPrice,
-    });
-    await transaction.wait();
-    router.push('./');
+      transaction = await contract.createMarketItem(
+        nftaddress,
+        tokenId,
+        price,
+        {
+          value: listingPrice,
+        }
+      );
+      await transaction.wait();
+      router.push('./');
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <div className="flex justify-center">
@@ -80,6 +95,13 @@ export default function MinItem() {
           className="mt-2 border rounded p-4"
           onChange={(e) =>
             setFormInput({ ...formInput, description: e.target.value })
+          }
+        />
+        <input
+          placeholder="kategory"
+          className="mt-2 border rounded p-4"
+          onChange={(e) =>
+            setFormInput({ ...formInput, kategory: e.target.value })
           }
         />
         <input
