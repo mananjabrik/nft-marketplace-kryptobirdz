@@ -8,9 +8,7 @@ function KryptoBirdMarketplace({ Component, pageProps }: AppProps) {
         className="boder-b p-6 text-center"
         style={{ backgroundColor: 'purple' }}
       >
-        <p className="text-2xl font-bold text-white mr-5">
-          KryptoBird MarketPlace
-        </p>
+        <p className="text-2xl font-bold text-white mr-5">NFT BNB Opensea</p>
         <div className="flex justify-center align-center text-white mt-5">
           <Link href="/">
             <a className="mr-6 hover:text-purple-400 capitalize">

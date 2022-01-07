@@ -1,12 +1,14 @@
 import { NftsProps } from '../interface/NftsProps';
 import { ethers } from 'ethers';
 import { nftaddress, nftmarketaddress } from '../config';
-import { LoadNFTs, showContract } from '.';
 import Web3Modal from 'web3modal';
 import KBMarket from '../config/contracts/KBMarket.sol/KBMarket.json';
 
+import { useRouter } from 'next/router';
+
 export async function buyNFTs(nft: NftsProps) {
-  const { tokenContract, marketContract } = showContract();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const router = useRouter();
   const web3modal = new Web3Modal();
   const connection = await web3modal.connect();
   const provider = new ethers.providers.Web3Provider(connection);
@@ -17,5 +19,5 @@ export async function buyNFTs(nft: NftsProps) {
     value: price,
   });
   await transaction.wait();
-  LoadNFTs(tokenContract, marketContract, 'marketItems');
+  router.push('/');
 }
