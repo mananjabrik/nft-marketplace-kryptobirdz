@@ -2,7 +2,7 @@ import React from 'react';
 import { NftsProps } from '../interface/NftsProps';
 
 interface CardItemProps extends NftsProps {
-  onBuy: () => void;
+  onBuy?: () => void;
 }
 
 export const CardItem: React.FC<CardItemProps> = (nft) => {
@@ -29,12 +29,14 @@ export const CardItem: React.FC<CardItemProps> = (nft) => {
       </div>
       <div className="p-4 bg-black">
         <p className="text-3xl mb-4 font-bold text-white">{nft.price} ETH</p>
-        <button
-          className="w-full bg-purple-500 text-white font-bold rounded-md"
-          onClick={nft.onBuy}
-        >
-          Buy
-        </button>
+        {nft.onBuy ? (
+          <button
+            className="w-full bg-purple-500 text-white font-bold rounded-md"
+            onClick={nft.onBuy}
+          >
+            Buy
+          </button>
+        ) : null}
       </div>
     </div>
   );

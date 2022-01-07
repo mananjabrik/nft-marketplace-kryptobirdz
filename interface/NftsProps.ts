@@ -1,6 +1,6 @@
 export interface NftsProps {
   price: string;
-  tokenId: number;
+  tokenId: string;
   seller: string;
   owner: string;
   image: string;
