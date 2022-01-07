@@ -14,10 +14,19 @@ const Home: NextPage = () => {
       setLoadingState(false);
     });
   }, []);
-  console.log(loadingState);
-
   return (
     <div className="flex justify-center">
+      {loadingState === true ? (
+        <div className="flex justify-center items-center">
+          <div
+            className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-purple-900"
+            role="status"
+          >
+            <div className="spinner-border animate-spin inline-block w-4 h-4 border-r-4 rounded-full border-purple-900"></div>
+          </div>
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      ) : null}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
         {nfts?.map((nft, index) => (
           <CardItem key={index} onBuy={() => buyNFTs(nft)} {...nft} />
