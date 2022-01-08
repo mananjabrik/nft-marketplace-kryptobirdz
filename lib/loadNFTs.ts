@@ -1,7 +1,6 @@
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { NftsProps } from '../interface/NftsProps';
-import { showContract } from '.';
 
 export const loadNFTs = async (
   tokenContract: ethers.Contract,
